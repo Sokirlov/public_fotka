@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{#{% load photo_tags %}#}
+{#{% load modeles_tags %}#}
+{% load i18n %}
+{% block head %}
+<link href="{% static "css/modeles-form.css" %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div style="height: 70px"> </div>
+    <div class="modeles-link"> <a href="{% url 'modeles:modeles_list' %}">all</a> </div>
+    <h3>{% translate 'Форма для моделей' %}</h3>
+    <p>{% translate 'Все поля обязательны к заполнению' %}</p>
+    <div class="form_model">
+        <form action="{% url 'modeles:modele' %}" method="post" class="ModelesForm" style="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ modeles_form }}
+            <button class="btn_form"><span class="btn_form_text">Отправить заявку</span></button>
+        </form>
+    </div>
+
+
+{% endblock %}

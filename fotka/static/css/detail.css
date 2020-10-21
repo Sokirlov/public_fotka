@@ -1,0 +1,261 @@
+/*.banner{*/
+/*    !*overflow: hidden;*!*/
+/*    height: 90vh;*/
+/*    width: 100%;*/
+/*    background-position: center;*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: cover;*/
+/*}*/
+.title {
+    position: absolute;
+    bottom: -50px;
+    min-height: 100px;
+    min-width: 20vw;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+.intr{
+    width: 45%;
+    min-height: 100px;
+    padding: 100px;
+}
+.videobanner{
+    width: calc(100vw - 18px);
+    height: 80vh;
+    overflow: hidden;
+}
+.gallerys{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.gallPhoto{
+    /*width: calc(50% - 10px);*/
+    /*height: calc(50vw - 30px);*/
+    margin: 2px;
+    overflow: hidden;
+    min-width: 330px;
+    border: 1px solid #ccc;
+}
+.gallVideo{
+    width: calc(50% - 10px);
+    margin: 5px;
+    /*min-height: 400px;*/
+    overflow: hidden;
+}
+.image-detail{
+    border: 1px solid #ccc;
+    display: block;
+}
+.advn h2{
+    border-bottom: 1px solid #ccc;
+}
+.advn .blocks .advn_left{
+    position: relative;
+}
+.advn_text{
+    flex: 1;
+    margin: auto;
+    padding-left: 100px;
+}
+.advn_img{
+    flex: 1;
+    padding: 75px;
+    /*position: relative;*/
+    /*height: 40vh;*/
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.prices.blocks{
+    padding:0 50px 30px 50px;
+}
+
+.price.block {
+    margin: 10px;
+    border: solid 1px #ccc;
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+}
+
+.price_header{
+    min-height: 30px;
+    background: #aaa;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 20px 10px 10px 10px;
+}
+.price .into_text{
+    border: 1px solid #CCCCCC;
+}
+.price_description{
+    padding: 5px;
+    flex: 1;
+}
+.price_description ul{
+    padding: 0 0 0 30px;
+    font-size: 14px;
+}
+.price_description li {
+    list-style: circle;
+    line-height: 1.5;
+    padding: 10px 0;
+}
+
+.price_price{
+    text-align: center;
+    /*font-size: 30px;*/
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    font-size: 40px;
+}
+
+
+/*---------- advantages align --------------*/
+.advn_center{
+    text-align: center;
+}
+.advn_center .advn_text{
+    padding: 0;
+}
+.advn_right {
+    flex-direction: row-reverse;
+}
+
+/*----------------- case -----------------*/
+
+.case .block{
+    min-height: 300px;
+    width: calc(100vw - 30px);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.case_title {
+    width: 30%;
+    background: rgba(255,255,255,0.8);
+    padding: 20px 20px 20px 20px;
+    text-transform: uppercase;
+    text-align: center;
+    border-top: 1px solid #aaa;
+    border-left: 1px solid #aaa;
+    position: absolute;
+}
+
+.case_intro {
+    width: 30%;
+    background: rgba(255,255,255,0.8);
+    padding: 20px 20px 20px 20px;
+    border-left: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    position: absolute;
+    bottom: 10px;
+    top: 70px;
+}
+.clik_zakaz{
+    margin: 10px;
+    padding: 10px 0;
+    cursor: pointer;
+    /*text-transform: ;*/
+}
+.clik_zakaz:hover{
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+/*--------- only desktop ---------------*/
+@media screen and (min-width: 737px) {
+    .gallVideo {
+        min-height: 400px;
+    }
+
+    .advn_img img {
+        /*height: 40vh;*/
+        max-height: 200px;
+        align-self: center;
+        position: absolute;
+    }
+    .advn_img{
+        height: 40vh;
+    }
+    .bredcrumbs{
+        margin-top: 20px;
+    }
+    .many_text{
+        padding: 0 30px 30px 20px;
+    }
+}
+
+/*---------- mobile -------------*/
+@media screen and (max-width: 736px) {
+    .gallPhoto li{
+        line-height: 2;
+    }
+    .gallVideo{
+        width: 100%;
+        height: auto;
+    }
+    .banner{
+        min-height: 50vh;
+        height:50vh;
+    }
+    .title{
+        padding: 0;
+        bottom: 0;
+        /*width: calc(100% - 80px);*/
+        left: 0;
+    }
+    .intr {
+        padding: 50px;
+        width: auto;
+    }
+    .advn{
+        overflow: hidden;
+    }
+    .advn_text{
+        padding-left: 20px;
+    }
+    .advn_img{
+        /*height: fit-content;*/
+        padding: 0;
+    }
+    .advn_right, .advn_left, .advn_center{
+        flex-direction: column;
+    }
+    .advn_img img{
+        /*height: auto;*/
+        /*height: auto;*/
+        /*max-width: 75%;*/
+        /*position: relative;*/
+    }
+    .gallerys {
+        display: block;
+    }
+    .gallPhoto{
+        width: 100%;
+        height: auto;
+        margin: 0;
+        min-width: auto;
+    }
+    .case .block{
+        width: 100vw;
+    }
+    .prices.blocks {
+        padding: 0;
+    }
+    .case_title{
+        width: calc(100% - 40px);
+    }
+    .case_intro {
+        width: calc(100% - 40px);
+        top: auto;
+    }
+    .bredcrumbs{
+        line-height: 2.5;
+    }
+}

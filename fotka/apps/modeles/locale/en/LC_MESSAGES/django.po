@@ -1,0 +1,71 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-13 21:17+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\apps\modeles\forms.py:15
+msgid "ФИО"
+msgstr "Full name"
+
+#: .\apps\modeles\forms.py:16
+msgid "Телефон"
+msgstr "Phone"
+
+#: .\apps\modeles\forms.py:17
+msgid "Емэил"
+msgstr "Email"
+
+#: .\apps\modeles\forms.py:18
+msgid "Ссылка на Instagram"
+msgstr "Link to Instagram"
+
+#: .\apps\modeles\forms.py:19
+msgid "Ссылка на Facebook"
+msgstr "Link to Facebook"
+
+#: .\apps\modeles\forms.py:23
+msgid "год"
+msgstr "year"
+
+#: .\apps\modeles\forms.py:24
+msgid "Рост см, (число)"
+msgstr "Height cm, (number)"
+
+#: .\apps\modeles\forms.py:25
+msgid "Вес в кг, (число)"
+msgstr "Weight in kg, (number)"
+
+#: .\apps\modeles\forms.py:26
+msgid "Объем в плечах см, (число)"
+msgstr "Volume in the shoulders cm, (number)"
+
+#: .\apps\modeles\forms.py:27
+msgid "Объем в  талии см, (число)"
+msgstr "Waist cm, (number)"
+
+#: .\apps\modeles\forms.py:28
+msgid "Объем в бедрах см, (число)"
+msgstr "Hip cm, (number)"
+
+#: .\apps\modeles\forms.py:29
+msgid "Размер обуви, (число)"
+msgstr "Shoe size, (number)"
+
+#: .\apps\modeles\forms.py:32
+msgid "Гонорар в грн, (только число)"
+msgstr "Fee in UAH, (number only)"

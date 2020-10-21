@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load photo_tags %}
+{% load static %}
+{% load thumbnail %}
+{% block title %}{{ object.categoryName }}{% endblock %}
+{% block head %}
+    <meta name="keywords" content="{{ object.keyWords }}" />
+    <link href="{% static "css/detail.css" %}" rel="stylesheet">
+    {#  ------------------------------------------------------------  #}
+    <!-- Magnific Popup core CSS file -->
+<link rel="stylesheet" href="{% static "magnific-popup/magnific-popup.css"%}">
+<!-- Magnific Popup core JS file -->
+<script src="{% static "magnific-popup/jquery.magnific-popup.min.js"%}"></script>
+    <script src="{% static "magnific-popup/gallery.js"%}"></script>
+{% endblock %}
+{% block content %}
+    <div style="height: 50px"> &nbsp;</div>
+    {% for o in case %}
+    <div class="wrapper">
+    <div class="bredcrumbs">{{ request.path |bdcb|markdown }}</div>
+        <div><h2>{{ o.title }}</h2></div>
+        <div class="many_text">{{ o.text |markdown}}</div>
+        <div class="gallerys blocks">
+            {% for csg in o.casegallery_set.all %}
+           <div class="gallPhoto">
+                {% thumbnail csg.Gallery "600" quality=80 as im %}
+                    <a href="/media/{{ csg.Gallery }}" class="gallpopup" title="{% if csg.imgAlt %}{{ csg.imgAlt }}- {{ csg.idsort }}{% else %}{{ o.title }} - {{ csg.idsort }}{% endif %}">
+                    <img src="{{ im.url }}" class="an image-detail" alt="{% if csg.imgAlt %}{{ csg.imgAlt }}- {{ csg.idsort }}{% else %}{{ o.title }} - {{ csg.idsort }}{% endif %}" width="100%"></a>
+                {% endthumbnail %}
+           </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+{{ kwargs.case }}
+{% endblock %}

@@ -1,0 +1,67 @@
+h3 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20pt;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+p {
+    text-align: center;
+}
+.form_model {
+    width: 100%;
+}
+.ModelesForm {
+    width: 50%;
+    margin: 0 auto 30px auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #eee;
+    display: flex;
+    flex-wrap: wrap;
+    /*flex-direction: column;*/
+    max-width: 500px;
+}
+input {
+    margin: 5px 0;
+    padding: 3px;
+    width: 100%;
+}
+label {
+    margin: 10px 0 0 0;
+    font-size: small;
+    color: #333;
+    width: 100%;
+}
+select {
+    padding: 5px 0;
+    color: #999;
+    margin: 5px 0;
+    background: rgb(250,250,250);
+    width: 100%;
+}
+select#id_birthday_day, select#id_birthday_month, select#id_birthday_year{
+    width: calc(100% / 3 - 10px);
+}
+select#id_birthday_month, select#id_birthday_year{
+margin-left: 15px;
+}
+button {
+    margin: 20px 0;
+    padding: 5px;
+    margin-left: calc(100% - 125px);
+}
+#id_tel, #id_email, #id_insta, #id_fb, #id_lenth, #id_weight, #id_chest, #id_waist, #id_hips, #id_footwear{
+    width: calc(50% - 15px);
+}
+#id_tel, #id_insta, #id_lenth,  #id_chest,  #id_hips {
+    margin-right:10px ;
+}
+.modeles-link{
+    text-align: right;
+}
+@media screen and (max-width: 736px) {
+    .ModelesForm{
+        width: 90%;
+    }
+}

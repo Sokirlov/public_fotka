@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load photo_tags %}
+{% load thumbnail %}
+{% load static %}
+{% load i18n %}
+{% block title %}Фотосъемка в Киеве{% endblock %}
+{% block content %}
+	<div class="content">
+		{% for a in categorys %}
+			<div class="block">
+
+				<div class="banner" style="{% if request.user_agent.is_mobile  %}{% thumbnail a.categoryBanner "900" quality=70 as im %}background-image: url({{ im.url }}){% endthumbnail %}
+{% else %}background-image: url(/media/{{ a.categoryBanner }}){% endif %}">
+                    <h2>{{ a.categoryName }}</h2>
+{#					<img alt="{{ a.categoryName }}" src="/media/{{ a.categoryBanner }}">#}
+                    {% if request.user_agent.is_mobile  %}
+                        <div class="an intro">{{ a.introText|markdown|truncatewords:10 }}</div>
+                    {% else %}
+                        <div class="an intro">{{ a.introText|markdown|truncatewords:30 }}</div>
+                    {% endif %}
+{#					<div class="an intro">{{ a.introText|markdown|truncatewords:30 }}</div>#}
+                    <a href="{{ a.get_absolute_url }}"><div class="an btn">{% translate 'Подробнее' %}</div></a>
+
+				</div>
+
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-13 21:17+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: .\templates\base.html:29
+msgid "Главная"
+msgstr "Головна"
+
+#: .\templates\base.html:33
+msgid "Фотосъемка"
+msgstr "Фотозйомка"
+
+#: .\templates\base.html:38
+msgid "Видеосъемка"
+msgstr "Відеозйомка"
+
+#: .\templates\base.html:43
+msgid "Аэросъемка"
+msgstr "Зйомка з дрона"
+
+#: .\templates\base.html:48 .\templates\photo\contacts.html:21
+msgid "Контакты"
+msgstr "Контакти"
+
+#: .\templates\base.html:53
+msgid "Моделям"
+msgstr "Моделям"
+
+#: .\templates\base.html:71
+msgid "Дизайн, создание и наполнение - Соколов Кирилл"
+msgstr "Розробка та наповнення - Соколов Кирило"
+
+#: .\templates\clients\form.html:13 .\templates\modeles\form.html:14
+#, fuzzy
+#| msgid "Заказать"
+msgid "Заказать услугу"
+msgstr "Замовити"
+
+#: .\templates\clients\form.html:16 .\templates\modeles\form.html:17
+msgid "Отправить заявку"
+msgstr "Надіслати"
+
+#: .\templates\modeles\modeles_form.html:12
+msgid "Форма для моделей"
+msgstr "Форма для моделей"
+
+#: .\templates\modeles\modeles_form.html:13
+msgid "Все поля обязательны к заполнению"
+msgstr "Всі поля обов'язкові до заповнення"
+
+#: .\templates\photo\category.html:22
+msgid "Подробнее"
+msgstr "Докладно"
+
+#: .\templates\photo\category_detail.html:61
+msgid "Портфолио"
+msgstr "Портфоліо"
+
+#: .\templates\photo\category_detail.html:94
+msgid "Цены"
+msgstr "Ціни"
+
+#: .\templates\photo\category_detail.html:101
+msgid "грн"
+msgstr "грн"
+
+#: .\templates\photo\category_detail.html:103
+msgid "Заказать"
+msgstr "Замовити"
+
+#: .\templates\photo\category_detail.html:112
+msgid "Кейс работ"
+msgstr "Мій кейс"
+
+#: .\templates\static\thanks.html:11
+msgid "Спасибо! Ваша заявка принята :)"
+msgstr "Дякуємо! Ваша заявка прийнята :)"

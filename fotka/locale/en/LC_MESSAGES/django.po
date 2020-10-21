@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-13 21:17+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\templates\base.html:29
+msgid "Главная"
+msgstr "Home"
+
+#: .\templates\base.html:33
+msgid "Фотосъемка"
+msgstr "Photo"
+
+#: .\templates\base.html:38
+msgid "Видеосъемка"
+msgstr "Video"
+
+#: .\templates\base.html:43
+msgid "Аэросъемка"
+msgstr "Dron"
+
+#: .\templates\base.html:48 .\templates\photo\contacts.html:21
+msgid "Контакты"
+msgstr "Contact"
+
+#: .\templates\base.html:53
+msgid "Моделям"
+msgstr "Models"
+
+#: .\templates\base.html:71
+msgid "Дизайн, создание и наполнение - Соколов Кирилл"
+msgstr "Design, development & content by Sokolov Kyrylo"
+
+#: .\templates\clients\form.html:13 .\templates\modeles\form.html:14
+#, fuzzy
+#| msgid "Заказать"
+msgid "Заказать услугу"
+msgstr "Ordering"
+
+#: .\templates\clients\form.html:16 .\templates\modeles\form.html:17
+msgid "Отправить заявку"
+msgstr "Send"
+
+#: .\templates\modeles\modeles_form.html:12
+msgid "Форма для моделей"
+msgstr "Form for models"
+
+#: .\templates\modeles\modeles_form.html:13
+msgid "Все поля обязательны к заполнению"
+msgstr "All fields are required"
+
+#: .\templates\photo\category.html:22
+msgid "Подробнее"
+msgstr "Readmore"
+
+#: .\templates\photo\category_detail.html:61
+msgid "Портфолио"
+msgstr "Portfolio"
+
+#: .\templates\photo\category_detail.html:94
+msgid "Цены"
+msgstr "Price"
+
+#: .\templates\photo\category_detail.html:101
+msgid "грн"
+msgstr "UAH"
+
+#: .\templates\photo\category_detail.html:103
+msgid "Заказать"
+msgstr "Ordering"
+
+#: .\templates\photo\category_detail.html:112
+msgid "Кейс работ"
+msgstr "My Case"
+
+#: .\templates\static\thanks.html:11
+msgid "Спасибо! Ваша заявка принята :)"
+msgstr "Thanks! Your application is accepted :)"

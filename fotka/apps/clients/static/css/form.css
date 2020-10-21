@@ -1,0 +1,82 @@
+.form {
+    position: fixed;
+    align-items: center;
+    background: RGBA(0,0,0,0.8);
+    width: 100%;
+    height: calc(100% - 60px);
+    backdrop-filter: blur(4px);
+    display: none;
+    z-index: 3;
+    margin-top: 60px;
+    align-content: center;
+}
+.form_block{
+    position: fixed;
+    z-index: 4;
+    /*height: calc(100% - 50px);*/
+    margin-left: calc(50% - 200px);
+}
+.form_bgr{
+    width: 100%;
+    height: 100%;
+}
+form {
+    width: 400px;
+    margin: auto;
+    border: 1px solid #888;
+    padding: 10px;
+    background: rgb(200, 200, 200);
+    display: flex;
+    flex-direction: column;
+}
+input {
+    height: 30px;
+    margin: 5px 0;
+    background: #eee;
+    border: 1px solid #888;
+}
+textarea {
+    background: #eee;
+    border: 1px solid #888;
+}
+/*input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { !* Chrome/Opera/Safari *!*/
+/*    font-size: x-large;*/
+/*    text-transform: uppercase;*/
+/*}*/
+/*input::-moz-placeholder, textarea::-moz-placeholder { !* Firefox 19+ *!*/
+/*    font-size: x-large;*/
+/*    text-transform: uppercase;*/
+/*}*/
+/*input:-ms-input-placeholder, textarea:-ms-input-placeholder { !* IE 10+ *!*/
+/*    font-size: x-large;*/
+/*    text-transform: uppercase;*/
+/*}*/
+/*input:-moz-placeholder, textarea:-moz-placeholder { !* Firefox 18- *!*/
+/*    font-size: x-large;*/
+/*    text-transform: uppercase;*/
+/*}*/
+.btn_form{
+    margin: 10px 0px 0px 0px;
+    align-self: flex-end;
+    padding: 10px 20px;
+}
+select {
+    margin: 10px 0 20px 0;
+    height: 40px;
+    background: #eee;
+    color: #666;
+}
+.zakaz_form p{
+    text-align: center;
+}
+@media screen and (max-width: 736px) {
+    .zakaz_form {
+        width: calc(100vw - 40px);
+        margin: 0 20px 0 20px;
+    }
+    .ModelesForm{
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 40px);
+    }
+}

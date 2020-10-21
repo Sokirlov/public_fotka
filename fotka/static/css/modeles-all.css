@@ -1,0 +1,103 @@
+.modeles_container{
+    display: flex;
+}
+.modeles_block {
+    padding: 10px 0;
+    margin-bottom: 50px;
+    width: calc(50% - 5px);
+    background: #DCEBF5;
+    border: 1px solid #97A2A8;
+}
+.modeles_block:nth-child(odd){
+    margin-right: 10px;
+}
+.modeles_title {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #97A2A8;
+}
+.modeles_price {
+    text-align: right;
+    flex: 1;
+}
+.modeles_content {
+    display: flex;
+}
+.modeles_skils, .modeles_contacts, .modeles_uu{
+    display: flex;
+    /*text-align: center;*/
+    flex-direction: column;
+}
+.modeles_contacts>div{
+    margin: 10px;
+}
+.skill {
+    margin: 5px 0px;
+    display: flex;
+    border-bottom: 1px #ccc dashed;
+}
+.modeles_left {
+    max-width: 40vw;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px 0px 10px;
+}
+.modeles_left img {
+    width: 20vw;
+
+}
+.title {
+    padding: 0 10px 0px 0px;
+    text-transform: uppercase;
+}
+.modeles-link{
+    text-align: right;
+}
+.modles_all_filer_blocks{
+    display: flex;
+}
+.modles_all_filer_blocks>div{
+    flex: 1;
+    text-align: center;
+}
+label {
+    font-size: small;
+}
+select {
+    width: 100%;
+}
+input {
+    width: 40%;
+}
+.filter {
+    padding: 20px 10px 50px 10px;
+    background: #DCEBF5;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #888;
+}
+button.btn_form {
+    margin: 10px 0;
+    float: right;
+}
+.img_mod{
+    width: 15vw;
+    height: 15vw;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 3px 0 #999;
+}
+.modeles_right {
+    margin: 10px 5px 10px 10px;
+    padding-left: 15px;
+    border-left: 2px solid #97A2A8;
+    font-size: 10pt;
+    width: 100%;
+}
+.skill div {
+    flex: 1;
+}
+.gallerys_blocks{
+    display: flex;
+    flex-wrap: wrap;
+    /* min-height: 220px; */
+}

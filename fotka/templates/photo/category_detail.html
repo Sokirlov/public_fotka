@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load photo_tags %}
+{% load clients_tags %}
+{% load static %}
+{% load i18n %}
+{% load thumbnail %}
+{% block title %}{{ object.categoryName }}{% endblock %}
+{% block head %}
+    <meta name="keywords" content="{{ category.keyWords }}" />
+    <link href="{% static "css/detail.css" %}" rel="stylesheet">
+    <!-- Magnific Popup core CSS file -->
+    <link rel="stylesheet" href="{% static "magnific-popup/magnific-popup.css"%}">
+    <script src="{% static "magnific-popup/jquery.magnific-popup.min.js"%}"></script>
+    <script src="{% static "magnific-popup/gallery.js"%}"></script>
+{% endblock %}
+{% block content %}
+    {% zakaz_form %}
+        <div class="content">
+            <div class="banner" style="{% if request.user_agent.is_mobile  %}{% thumbnail object.categoryBanner "900" quality=90 as im %}background-image: url({{ im.url }}){% endthumbnail %}
+                {% elif object.video %}
+{% else %}background-image: url(/media/{{ object.categoryBanner }}){% endif %}">
+                {% if request.user_agent.is_mobile  %}
+                {% else %}
+                {% if object.video %}
+                    <div class="videobanner">
+                 <iframe width="100%" height="500" style="height: 130vh; width: 140vw; margin-top: -10vh; margin-left: -20vw;" src="{{ object.video |videobanner}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                {% endif %}{% endif %}
+
+                <div class="title an">
+                    <h1>{{ category.categoryName }}</h1>
+                </div>
+            </div>
+            <div class="intr">
+                {{ category.introText|markdown }}
+            </div>
+            <div class="advetages wrapper">
+                {% for advn in advantages %}
+                    <div class="advn {{ advn.position }}">
+                            <h2 class="an">{{ advn.advantagesTitle }}</h2>
+                        {% if advn.advantagesText or advn.advantagesImage %}
+                            <div class="advn blocks advn_{{ advn.position }}">
+                                {% if advn.advantagesText %}
+                                <div class="an advn_text ">
+                                    {{ advn.advantagesText|markdown }}
+                                </div>
+                                {% endif %}
+                                {% if advn.advantagesImage %}
+                                <div class="advn_img">
+                                    <img class="an img_{{ advn.position }}" src="/media/{{ advn.advantagesImage }}">
+                                </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+{#                </div>#}
+            </div>
+            {% if gallery %}
+            <div class="gallery wrapper">
+                        <h2>{% translate 'Портфолио' %}</h2>
+                <div class="gallerys blocks">
+                {% for a in gallery %}
+                    <div class="gallPhoto">
+                    {% thumbnail a.categoryGallery "600" quality=80 as im %}
+                        <a href="/media/{{ a.categoryGallery }}" title="{% if a.imgTitle %} {{ a.imgTitle }} - {{ a.idsort }}{% else %}{{ object.categoryName }} - {{ a.idsort }}{% endif %}"  class="gallpopup">
+                        <img src="{{ im.url }}" class="an image-detail" width="100%" alt="{% if a.imgTitle %} {{ a.imgTitle }} - {{ a.idsort }}{% else %}{{ object.categoryName }} - {{ a.idsort }}{% endif %}">
+                        </a>
+                    {% endthumbnail %}
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if videopholio %}
+            <div class="gallery wrapper">
+{#                        <h2>{{'portfolio' | globals }}</h2>#}
+                <div class="gallerys blocks">
+                {% for a in videopholio %}
+                    <div class="gallVideo">
+{#                        <a class="popup-youtube" href=""{{ a.videoLink |youtube }}">#}
+{#                        <img src="{{ a.videoLink}}">#}
+                        <iframe class="popup-youtube" width="100%" height="100%" src="{{ a.videoLink |youtube }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{#                        </a>#}
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if prices %}
+            <div class="price wrapper">
+                        <h2>{% translate 'Цены' %}</h2>
+                <div class="prices blocks">
+                    {% for price in prices %}
+                        <div class="price block">
+                            <div class="price_header">{{ price.priceBlockName }}</div>
+                            <div class="price_description">{{ price.priceBlockText|markdown}}</div>
+                            <div class="price_price">
+                                {{ price.priceBlockCount }}{% translate 'грн' %}
+                            </div>
+                            <button name="заказать" class="clik_zakaz">{% translate 'Заказать' %}</button>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+{% block form %} {% endblock %}
+            {% if case %}
+            <div ><h2>{% translate 'Кейс работ' %}</h2>
+                {% for cs in case %}
+                    <div class="case wrapper">
+                        <div class="case blocks">
+                           <a href="{{ cs.get_absolute_url }}">
+                            <div class="an case block" style="{% if request.user_agent.is_mobile  %}{% thumbnail cs.casegallery_set.all|preview "500" quality=90 as im %}background-image: url({{ im.url }}){% endthumbnail %}
+{% else %}background-image: url('/media/{{ cs.casegallery_set.all|preview }}'){% endif %}">
+                                <div class="case_title">{{ cs.title }}</div>
+                                <div class="case_intro">{{ cs.text |markdown|truncatewords:10}}</div>
+                           </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+{% endblock %}

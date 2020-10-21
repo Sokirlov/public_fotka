@@ -1,0 +1,171 @@
+.title.an{
+    right: -110%;
+}
+.title.an.start{
+    animation-name: title-from-right;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
+}
+@keyframes title-from-right {
+    0% {
+        right: -110%;
+
+    }
+    100% {
+        right: 100px;
+
+    }
+}
+/*------------ advenages -----------------*/
+.advn_text{
+    opacity: 0;
+}
+.advn_text.start{
+    animation-name: text-opacity;
+    animation-duration: 2.5s;
+    animation-fill-mode: forwards;
+}
+@keyframes text-opacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+
+    }
+}
+h2.an{
+    opacity: 0;
+}
+h2.an.start{
+    animation-name: text-opacity;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+}
+
+/*------------ text-left img-right -------*/
+.img_left{
+    right: -110%;
+}
+.img_left.start{
+    animation-name: slide-from-right;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
+}
+@keyframes slide-from-right {
+    0% {
+        right: -110%;
+
+    }
+    100% {
+        right: 15vw;
+
+    }
+}
+/*------------ text-right img-left -------*/
+.img_right{
+    left: -110%;
+}
+.img_right.start{
+    animation-name: slide-from-left;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
+}
+@keyframes slide-from-left {
+    0% {
+        left: -110%;
+
+    }
+    100% {
+        left: 15vw;
+
+    }
+}
+/*------------ portfolio -----------------*/
+
+.image-detail{
+    opacity: 0;
+}
+
+.image-detail.start{
+    animation-name: text-opacity;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+}
+/*case*/
+.case.block{
+    opacity: 0;
+}
+.case.block.start{
+    animation-name: text-opacity;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+}
+
+/*category*/
+.an.intro{
+     right: -110%;
+}
+.an.intro.start{
+    animation-name: title-from-right;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
+}
+.an.btn{
+    opacity: 0;
+}
+.an.btn.start{
+    animation-name: text-opacity;
+    animation-delay: 1s;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+.an.form{
+    opacity: 0;
+}
+.an.form.start{
+    animation-name: text-opacity;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+.an.form_block {
+    opacity: 0;
+}
+.an.form_block.start{
+    animation-name: text-opacity;
+    animation-delay: 0.5s;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+@media screen and (max-width: 736px) {
+    @keyframes title-from-right {
+    0% {
+        right: -110%;
+
+    }
+    100% {
+        right: 0px;
+
+    }
+}
+    @keyframes slide-from-right {
+        0% {
+            right: -110%;
+
+        }
+        100% {
+            right: 0px;
+
+        }
+    }
+    @keyframes slide-from-left {
+        0% {
+            left: -110%;
+
+        }
+        100% {
+            left: 0px;
+
+        }
+    }
+}

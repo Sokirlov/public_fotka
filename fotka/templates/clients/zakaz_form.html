@@ -1,0 +1,15 @@
+{% load static %}
+{% load photo_tags %}
+{% block head %}
+<link href="{% static "css/form.css" %}" rel="stylesheet">
+{% endblock %}
+
+{#<div class="form_bgr">#}
+    <div class="form">
+        <form action="{% url 'clients:zakaz' %}" method="post" class="zakaz_form">
+            {% csrf_token %}
+            {{ zakaz_form }}
+            <button class="btn_form"><span class="btn_form_text">{{ 'send_order' |globals }}</span></button>
+        </form>
+    </div>
+{#</div>#}

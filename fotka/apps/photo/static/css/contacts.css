@@ -1,0 +1,59 @@
+.contact_photo{
+    flex: 1;
+}
+.contact_photo img{
+    width: 100%;
+    display: block;
+}
+.contacts_text{
+    flex: 2;
+    padding: 0 20px 0 20px;
+}
+.about_photographer li{
+    line-height: 2;
+}
+h3{
+    border-bottom: 1px solid #ccc;
+}
+.contacts_contact{
+    display: flex;
+}
+.contacts_contact div{
+    /*flex:1;*/
+    padding: 0 20px;
+    display: flex;
+    align-self: center;
+}
+.clients{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.clients img {
+    width: 200px;
+    height: fit-content;
+    padding: 10px;
+}
+
+@media screen and (max-width: 736px) {
+    .contact_photo img{
+        width: 100%;
+    }
+    .contacts_contact {
+        flex-direction: column;
+        text-align: center;
+    }
+    .contacts_contact div{
+        margin: 20px 0 20px 0;
+    }
+    .clients{
+        width: 100%;
+        max-width: 450px;
+        margin: auto;
+    }
+    .clients img{
+        max-width: 200px;
+        width: calc(50% - 25px);
+        height: auto;
+    }
+}
