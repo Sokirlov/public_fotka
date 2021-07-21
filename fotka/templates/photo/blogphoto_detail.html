@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load photo_tags %}
+{% load static %}
+{% load thumbnail %}
+{% block title %}{{ blog.title }}{% endblock %}
+{% block head %}
+    <meta name="keywords" content="{{ object.keyWords }}" />
+    <meta name="description" content="{{ object.descriptions }}" />
+    <link href="{% static "css/detail.css" %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static "magnific-popup/magnific-popup.css"%}">
+<script src="{% static "magnific-popup/jquery.magnific-popup.min.js"%}"></script>
+    <script src="{% static "magnific-popup/gallery.js"%}"></script>
+{% endblock %}
+{% block content %}
+    <br><br><br><br>
+    <div style="height: 50px"> &nbsp;</div>
+    {% for o in blog %}
+    <div class="wrapper">
+    <div class="bredcrumbs">{{ request.path |bdcb|markdown }}</div>
+        <div><h2>{{ o.title }}</h2></div>
+        <div class="many_text">{{ o.text |markdown}}</div>
+    </div>
+    {% endfor %}
+{{ kwargs.case }}
+{% endblock %}

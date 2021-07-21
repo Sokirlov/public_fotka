@@ -10,14 +10,11 @@
 {% endblock %}
 {% block content %}
 <div style="height: 60px"> </div>
-
-
 <div class="filters">
     <div class="filter">
         <form method="get">
             {% csrf_token %}
         <div class="modles_all_filer_blocks">
-{#            {{ modeles_all_list.form }}#}
             <div class="{{ modeles_all_list.form.sex.id_for_label }}">
                 <label for="{{ modeles_all_list.form.sex.id_for_label }}">Пол</label>
                 {{ modeles_all_list.form.sex }}
@@ -29,6 +26,10 @@
             <div class="{{ modeles_all_list.form.haer_lenth.id_for_label }}">
                 <label for="{{ modeles_all_list.form.haer_lenth.id_for_label }}">Длина волос</label>
                 {{ modeles_all_list.form.haer_lenth }}
+            </div>
+            <div class="{{ modeles_all_list.form.tfp.id_for_label }}">
+                <label for="{{ modeles_all_list.form.tfp.id_for_label }}">TFP</label>
+                {{ modeles_all_list.form.tfp }}
             </div>
             <div class="{{ modeles_all_list.form.lenth__gt.id_for_label }}">
                 <label for="{{ modeles_all_list.form.lenth__gt.id_for_label }}">Рост от - до</label>
@@ -61,7 +62,6 @@
             </div>
         </div>
             <button class="btn_form"><span class="btn_form_text">Отфильтровать</span></button>
-{#        <input type="submit" />#}
     </form>
     </div>
 </div>
@@ -76,13 +76,11 @@
             <div class="modeles_content">
                 <div class="modeles_left">
                     <div class="gallerys blocks">
-{#                        <img src="/media/{{ mod.face }}">#}
                         {% thumbnail mod.face "600" quality=80 as im %}
                             <a href="/media/{{ mod.face }}" class="gallpopup" title="№{{ mod.id }}   {{ mod.fio }}"><div class="img_mod" style="background: url({{ im.url }}); background-size: cover; background-position: center; background-repeat: no-repeat;"></div></a>
                         {% endthumbnail %}
                     </div>
                     <div class="gallerys blocks">
-{#                        <img src="/media/{{ mod.full_photo }}">#}
                         {% thumbnail mod.full_photo "600" quality=80 as im %}
                             <a href="/media/{{ mod.full_photo }}" class="gallpopup" title="№{{ mod.id }}   {{ mod.fio }}"><div class="img_mod" style="background: url({{ im.url }}); background-size: cover; background-position: center; background-repeat: no-repeat;"></div></a>
                         {% endthumbnail %}
@@ -90,21 +88,18 @@
                 </div>
                 <div class="modeles_right">
                     <div class="modeles_uu">
+                    <div class="skill"><div class="title">ТФП</div><div class="numb">{% if mod.tfp %}Да
+                        {% else %} - {% endif %}</div></div>
                         <div class="skill"><div class="title">пол</div><div class="numb">{{ mod.sex }}</div></div>
                         <div class="skill"><div class="title">Дата рождения</div><div class="numb">{{ mod.birthday }}</div></div>
                         <div class="skill"><div class="title">Цвет волос</div><div class="numb">{{ mod.hair_color }}</div></div>
                         <div class="skill"><div class="title">Длина волос</div><div class="numb">{{ mod.haer_lenth }}</div></div>
-{#                    </div>#}
-{#                    <div class="modeles_skils">#}
                         <div class="skill"><div class="title">Рост</div><div class="numb">{{ mod.lenth }} см</div></div>
                         <div class="skill"><div class="title">Вес</div><div class="numb">{{ mod.weight }} кг</div></div>
                         <div class="skill"><div class="title">Грудь</div><div class="numb">{{ mod.chest }} см</div></div>
                         <div class="skill"><div class="title">Талия</div><div class="numb">{{ mod.waist }} см</div></div>
                         <div class="skill"><div class="title">Бедра</div><div class="numb">{{ mod.hips }} см</div></div>
                         <div class="skill"><div class="title">Обувь</div><div class="numb">{{ mod.footwear }} р</div></div>
-{#                    </div>#}
-{##}
-{#                    <div class="modeles_contacts">#}
                         <div class="skill"><div class="title">Телефон</div><div class="numb">{{ mod.tel }}</div></div>
                         <div class="skill"><div class="title">e-mail</div><div class="numb">{{ mod.email }}</div></div>
                         <div class="skill"><div class="title">Instagram</div><div class="numb"><a href="{{ mod.insta | instas }}" target="_blank">{{ mod.insta | insta_name }}</a></div></div>

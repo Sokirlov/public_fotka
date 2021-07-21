@@ -1,0 +1,176 @@
+{% extends "720p/720p_base.html" %}
+{% load studio_buh_tags %}
+{% block 720p_title %}
+<link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+          integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+            integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+    <script>
+        google.charts.load('current', {'packages': ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+    graphic = [{% for foo in payments.qs reversed %}
+        ['{{ foo.date_create_payment|date:"SHORT_DATE_FORMAT" }}',   {{ foo.payment|replacekomatodot }},],
+    {% endfor %}];
+    graphic.sort(function(a, b){
+        const art = a[0].split('.');
+        const new_date = art[1]+','+art[0]+','+art[2];
+        const brt = b[0].split('.');
+        const new_date2 = brt[1]+','+brt[0]+','+brt[2];
+        const sorted = new Date(new_date) - new Date(new_date2);
+        return sorted;
+    });
+    let graphic_len = graphic[0];
+    graphic_arr=[];
+    for (i = 0; i < graphic.length; i++) {
+        if (graphic[i][0] == graphic_len[0]) {
+            graphic_len = [graphic[i][0], graphic[i][1] + graphic_len[1]];
+        } else {
+            graphic_arr.push(graphic_len);
+            graphic_len = graphic[i];
+        }
+    };
+    graphic_arr.push(graphic[graphic.length-1]);
+    graphic_arr.unshift(['Year',  'Расходы',]);
+            var data = google.visualization.arrayToDataTable(graphic_arr);
+            var options = {
+                title: 'Статистика',
+                curveType: 'function',
+                legend: {position: 'bottom'}
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            chart.draw(data, options);
+        }
+    google.charts.setOnLoadCallback(drawChart2);
+    function drawChart2() {
+        var sums = Math.round( {{ payments.qs|sokirlov_sum:'alex_dun' }}+{{ payments.qs|sokirlov_sum:'sokirlov' }});
+        var half = sums/2;
+        var data = google.visualization.arrayToDataTable([
+            ['sokirlov', 'Оплачено', { role: "style" }, 'Разница'],
+            ['alexdun',  {{ payments.qs|sokirlov_sum:'alex_dun' }}, '#458CFF', {{ payments.qs|sokirlov_sum:'alex_dun' }}-half],
+            ['sokirlov',  {{ payments.qs|sokirlov_sum:'sokirlov' }}, '#dc3545', {{ payments.qs|sokirlov_sum:'sokirlov' }}-half]
+        ]);
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1, { calc: "stringify", sourceColumn: 3, type: "string", role: "annotation" }, 2,]);
+        var options = {
+            title: 'ИТОГО: '+sums +' грн',
+            curveType: 'function',
+            bar: {groupWidth: "95%"},
+            legend: { position: "none" }
+          };
+        var chart2 = new google.visualization.ColumnChart(document.getElementById("columnchart_material"));
+        chart2.draw(view, options);
+    }
+    $(function () {
+            $("#id_date_create_payment__gte").datetimepicker({
+                timepicker:false,
+                format: 'd.m.Y',
+                startDate: '2020.19s.11',
+                lang: 'ru',
+                value: '19.11.2020',
+
+            });
+            $("#id_date_create_payment__lte").datetimepicker({
+                timepicker:false,
+                format: 'd.m.Y',
+                startDate: '+2020.11s.01',
+                lang: 'ru',
+                value: '{% now "d.m.Y" %}',
+
+            });
+            $.datetimepicker.setLocale('ru');
+        });
+    </script>
+
+{% endblock %}
+{% block 720p_buh %}
+    <div class="container-fluid border-bottom bg-light">
+        <div class="container-fluid row">
+            <div id="curve_chart" style="width: 70%; height: 300px"></div>
+            <div id="columnchart_material" style="width: 30%; height: 300px;"></div>
+        </div>
+    </div>
+    {% if form %}
+        <div class="container-fluid border-bottom bg-danger">
+
+            <div class="container-5">
+                <p class="h4 text-uppercase text-center text-white pb-3 pt-4">Внести расходы</p>
+                <form method="post">
+                    <div class="row justify-content-center">
+                        {% csrf_token %}
+                        {% for f in form %}
+                            <div class="col-md-auto">
+                                <div class="container text-white"> {{ f.label_tag }}</div>
+                                <div class="container">{{ f }}</div>
+                            </div>
+                        {% endfor %}
+                        <div class="container pt-3 pb-5">
+                            <div class="float-right">
+                                <button class="btn btn-secondary"><span class="btn_form_text">Записать расходы</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </form>
+        </div>
+    {% endif %}
+    <div class="container-5 bg-info">
+        <p class="h4 text-uppercase text-center text-white pb-3 pt-4">Фильтр расходов</p>
+        <div class="container-fluid">
+            <form method="get">
+                {% csrf_token %}
+            <div class="row justify-content-center mb-4">
+                <div class="{{ payments.form.category__category.id_for_label }} col-md-auto  px-3">
+                    <label for="{{ payments.form.category__category.id_for_label }}" class="text-white pr-1">Категория</label>
+                    {{ payments.form.category__category }}
+                </div>
+                <div class="{{ payments.form.payer.id_for_label }} col-md-auto  px-3">
+                    <label for="{{ payments.form.payer.id_for_label }}" class="text-white pr-1">Кто оплатил</label>
+                    {{ payments.form.payer }}
+                </div>
+                <div class="{{ payments.form.date_create_payment.id_for_label }} col-md-auto  px-3">
+                    <label for="{{ payments.form.date_create_payment.id_for_label }}" class="text-white pr-1">Дата</label>
+                    {{ payments.form.date_create_payment__gte }}  {{ payments.form.date_create_payment__lte }}
+                </div>
+                <div class="container py-4">
+                    <div class="float-right">
+                        <button class="btn_form"><span class="btn_form_text">Отфильтровать</span></button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col border-right">
+                <p class="h2 text-center pt-4">Расходы</p>
+                <table class="table">
+                    <thead class="table-danger">
+                    <tr>
+                        <th scope="col">Дата платежа</th>
+                        <th scope="col">Кто оплатил</th>
+                        <th scope="col">Категория расходов</th>
+                        <th scope="col">Описание расходов</th>
+                        <th scope="col">Сумма расходов</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for pay in payments.qs %}
+                        <tr>
+                            <th scope="row">{{ pay.date_create_payment }}</th>
+                            <td>{{ pay.get_payer_display }}</td>
+                            <td>{{ pay.category }}</td>
+                            <td>{{ pay.pay_name }}</td>
+                            <td>{{ pay.payment }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

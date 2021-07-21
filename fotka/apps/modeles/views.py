@@ -3,9 +3,6 @@ from .forms import ModelesForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-# from .filters import ModelesAllViewFilter
-
-
 
 def ModelesView(request):
     if request.method == 'POST':
@@ -22,6 +19,11 @@ def ModelesView(request):
 
 @login_required()
 def ModelesAllView(request):
-    # modelesalllist = Modeles.objects.all()
     modelesalllist = ModelesFilter(request.GET, queryset=Modeles.objects.all().order_by('id'))
     return render(request, 'modeles/modelesall_detail.html', {'modeles_all_list': modelesalllist})
+
+
+
+def ModelesAllFreeView(request):
+    modelesalllist = ModelesFilter(request.GET, queryset=Modeles.objects.all().order_by('id'))
+    return render(request, 'modeles/modelesallfree_detail.html', {'modeles_all_list': modelesalllist})

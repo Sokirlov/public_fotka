@@ -2,17 +2,18 @@
 {% load photo_tags %}
 {% load static %}
 {% load thumbnail %}
-{% block title %}{{ object.categoryName }}{% endblock %}
+
+{% block title %}{% for o in case %}{{ o.title }}{% endfor %}{% endblock %}
 {% block head %}
-    <meta name="keywords" content="{{ object.keyWords }}" />
+    <meta name="keywords" content="{% for o in case %}{{ o.keyWords }}{% endfor %}" />
+    <meta name="description" content="{% for o in case %}{{ o.descriptions }}{% endfor %}" />
+
     <link href="{% static "css/detail.css" %}" rel="stylesheet">
-    {#  ------------------------------------------------------------  #}
-    <!-- Magnific Popup core CSS file -->
 <link rel="stylesheet" href="{% static "magnific-popup/magnific-popup.css"%}">
-<!-- Magnific Popup core JS file -->
 <script src="{% static "magnific-popup/jquery.magnific-popup.min.js"%}"></script>
     <script src="{% static "magnific-popup/gallery.js"%}"></script>
 {% endblock %}
+
 {% block content %}
     <div style="height: 50px"> &nbsp;</div>
     {% for o in case %}

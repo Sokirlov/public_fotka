@@ -1,8 +1,8 @@
 from modeltranslation.translator import translator, TranslationOptions
-from .models import Category, Gallery, Advantages, Price, Globals, CaseWork, Contacts
+from .models import Category, Gallery, Advantages, Price, CaseWork, Contacts, BlogPhoto
 
 class CategoryTranslationOptions(TranslationOptions):
-	fields = ('categoryName', 'keyWords', 'introText')
+	fields = ('categoryName', 'keyWords', 'descriptions', 'introText')
 	# empty_values = {'name': '', 'content': ''}
 translator.register(Category, CategoryTranslationOptions)
 
@@ -18,14 +18,15 @@ class PriceTranslationOptions(TranslationOptions):
 	fields = ('priceBlockName', 'priceBlockText')
 translator.register(Price, PriceTranslationOptions)
 
-class GlobalsTranslationOptions(TranslationOptions):
-	fields = ('GlobalName',)
-translator.register(Globals, GlobalsTranslationOptions)
 
 class CaseWorkTranslationOptions(TranslationOptions):
-	fields = ('title', 'text',)
+	fields = ('title', 'text', 'keyWords', 'descriptions',)
 translator.register(CaseWork, CaseWorkTranslationOptions)
 
 class ContactsTranslationOptions(TranslationOptions):
 	fields = ('name', 'about',)
 translator.register(Contacts, ContactsTranslationOptions)
+
+class BlogPhotoTranslationOptions(TranslationOptions):
+	fields = ('title', 'text', 'keyWords', 'descriptions',)
+translator.register(BlogPhoto, BlogPhotoTranslationOptions)

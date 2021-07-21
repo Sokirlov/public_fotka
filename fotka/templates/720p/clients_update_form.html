@@ -1,0 +1,18 @@
+{% extends "720p/720p_base.html" %}
+{% load studio_buh_tags %}
+{% block 720p_title %}
+{% endblock %}
+{% block 720p_buh %}
+    <div style="height: 50px">&nbsp;</div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Send message">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

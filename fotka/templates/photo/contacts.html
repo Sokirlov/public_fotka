@@ -14,24 +14,16 @@
             <div class="contact_photo">
                 <img src="/media/{{ a.photo }}">
             </div>
-
                 <div class="contacts_text">
                     <h2>{{ a.name }}</h2>
                     <div class="about_photographer">{{ a.about|markdown }}</div>
                     <h3>{% translate 'Контакты' %}</h3>
                     <div class="contacts_contact">
                         <div><p>Tel.: <a href="tel:+38{{ a.tel }}" title="{{ a.tel }}">{{ a.tel }}</a></p></div>
-                        <div><img src="/media/icon/facebook.png" class="icon">{{ a.fb|socials|markdown }}</div>
-                        <div><img src="/media/icon/instagram.png" class="icon">{{ a.insta|socials|markdown }}</div>
+                        <div><a href="{{ a.fb }}" title="Link to {{ a.fb|socials }} Facebook"> <img src="/media/icon/facebook.png" class="icon" alt="Link to {{ a.fb|socials }} Facebook"></a></div>
+                        <div><a href="{{ a.insta }}" title="Link to {{ a.insta|socials }} Instagram" ><img src="/media/icon/instagram.png" class="icon" alt="link to {{ a.insta|socials }} Instagram"></a></div>
                     </div>
                 </div>
-
-{#				<div class="banner" style="background-image: url(/media/{{ a.categoryBanner }})">#}
-{#                    <h2>{{ a.categoryName }}</h2>#}
-{#					<img alt="{{ a.categoryName }}" src="/media/{{ a.categoryBanner }}">#}
-{#					<div class="an intro">{{ a.introText|markdown }}</div>#}
-{##}
-{#				</div>#}
             {% zakaz_form %}
 			</div>
 		{% endfor %}

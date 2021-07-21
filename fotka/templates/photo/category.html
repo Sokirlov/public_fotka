@@ -5,25 +5,31 @@
 {% load i18n %}
 {% block title %}Фотосъемка в Киеве{% endblock %}
 {% block content %}
-	<div class="content">
-		{% for a in categorys %}
-			<div class="block">
-
-				<div class="banner" style="{% if request.user_agent.is_mobile  %}{% thumbnail a.categoryBanner "900" quality=70 as im %}background-image: url({{ im.url }}){% endthumbnail %}
-{% else %}background-image: url(/media/{{ a.categoryBanner }}){% endif %}">
+    <div class="content">
+        {% if request.user_agent.is_mobile %}
+            {% for a in categorys %}
+                <div class="block">
                     <h2>{{ a.categoryName }}</h2>
-{#					<img alt="{{ a.categoryName }}" src="/media/{{ a.categoryBanner }}">#}
-                    {% if request.user_agent.is_mobile  %}
-                        <div class="an intro">{{ a.introText|markdown|truncatewords:10 }}</div>
-                    {% else %}
+                    <div class="banner"
+                         style="{% thumbnail a.categoryBanner "900" quality=70 as im %}background-image: url({{ im.url }}){% endthumbnail %}">
+                    </div>
+                        <div class="an intro">{{ a.introText|markdown|truncatewords:10 }}... <a
+                                href="{{ a.get_absolute_url }}">
+                            {% translate ' Подробнее' %}</a></div>
+                </div>
+            {% endfor %}
+        {% else %}
+            {% for a in categorys %}
+                <div class="block">
+                    <div class="banner" style="background-image: url(/media/{{ a.categoryBanner }})">
+                        <h2>{{ a.categoryName }}</h2>
                         <div class="an intro">{{ a.introText|markdown|truncatewords:30 }}</div>
-                    {% endif %}
-{#					<div class="an intro">{{ a.introText|markdown|truncatewords:30 }}</div>#}
-                    <a href="{{ a.get_absolute_url }}"><div class="an btn">{% translate 'Подробнее' %}</div></a>
-
-				</div>
-
-			</div>
-		{% endfor %}
-	</div>
+                        <a href="{{ a.get_absolute_url }}">
+                            <div class="an btn">{% translate 'Подробнее' %}</div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 {% endblock %}

@@ -1,9 +1,8 @@
 from django import template
 register = template.Library()
-from photo.models import Category, CaseWork, Globals
+from photo.models import Category, CaseWork
 from django.utils.safestring import mark_safe
-# from .models import Category, CaseWork
-import markdown
+
 
 
 @register.filter(name='markdown')
@@ -58,12 +57,8 @@ def bredcrumbs(path):
 def bredcrumbs(link):
     b = link.split('/')
     soc_link = '<a href="' + link + '">' + b[-1] + '</a>'
-    return soc_link
+    return b[-1]
 
-# @register.filter(name='globals')
-# def globals(gl):
-#     glob = Globals.objects.get(indexName=gl)
-#     return glob.GlobalName
 
 @register.filter(name='videobanner')
 def bannervideo(video):
@@ -75,4 +70,10 @@ def bannervideo(video):
 def youtube(link):
     arr = link.split('/')
     goodlink = 'https://www.youtube.com/embed/' + arr[-1]
+    return goodlink
+
+@register.filter(name='youtube2')
+def youtube2(link):
+    arr = link.split('/')
+    goodlink = arr[-1]
     return goodlink

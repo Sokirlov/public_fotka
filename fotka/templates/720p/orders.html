@@ -1,0 +1,126 @@
+{% extends "720p/720p_base.html" %}
+{% load studio_buh_tags %}
+{% block 720p_title %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+          integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+            integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        $(function () {
+            $("#id_date_ordering").datetimepicker({
+                format: 'd.m.Y H:i',
+                startDate: '+2020.11s.01',
+                lang: 'ru',
+                value: '{% now "d.m.Y H:i" %}',
+                timepicker:true,
+                allowTimes: [
+                    '10:00', '11:00', '12:00', '13:00', '14:00', '15:00',
+                    '16:00', '17:00', '18:00', '19:00', '20:00', '21:00',
+                    '22:00']
+            });
+            $.datetimepicker.setLocale('ru');
+        });
+        $(document).ready(function () {
+            $('#id_tel').select2();
+        });
+    </script>
+
+{% endblock %}
+
+{% block 720p_buh %}
+    <div class="container-fluid border-bottom bg-light">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Циклорама
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <iframe src="https://calendar.google.com/calendar/embed?height=400&amp;wkst=2&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FKiev&amp;title=%D0%A6%D0%B8%D0%BA%D0%BB%D0%BE%D1%80%D0%B0%D0%BC%D0%B0&amp;showPrint=0&amp;showDate=0&amp;showCalendars=0&amp;showTz=0&amp;mode=WEEK&amp;src=c29rb2xvdi5zdHVkaW8ua2lldkBnbWFpbC5jb20&amp;color=%234285F4" style="border:solid 1px #777" width="100%" height="400" frameborder="0" scrolling="no"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        Предметка
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <iframe src="https://calendar.google.com/calendar/embed?height=400&amp;wkst=2&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FKiev&amp;src=MW5lMDJkaThuZmJtMzR0Y282ZHQybDc4djRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23cc003c&amp;title=%D0%9F%D1%80%D0%B5%D0%B4%D0%BC%D0%B5%D1%82%D0%BA%D0%B0&amp;showCalendars=0&amp;showTz=0&amp;showDate=0&amp;showPrint=0&amp;mode=WEEK" style="border:solid 1px #777" width="100%" height="400" frameborder="0" scrolling="no"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if form %}
+        <div class="container-fluid border-bottom bg-info">
+            <div class="container">
+                <p class="h4 text-uppercase text-center text-white pb-3 pt-4">Новый заказ</p>
+                {% if submitted == True %}
+                    <h2 class="text-white text-center">Новый заказ добавлен !!!</h2>
+                    <p>&nbsp;</p>
+                {% else %}
+                    <form method="post">
+                        <div class="row">
+                            {% csrf_token %}
+                            {% for f in form %}
+                                <div class="mb-3">
+                                    <div class="container text-center text-white"> {{ f.label_tag }}</div>
+                                    <div class="container">{{ f }}</div>
+                                </div>
+                            {% endfor %}
+                            <div class="container-fluid pt-3">
+                                <div class="float-right">
+                                    <button class="btn btn-success"><span class="btn_form_text">Отправить заявку</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="container">&nbsp;</div>
+                        </div>
+                    </div>
+                    </form>
+                {% endif %}
+        </div>
+    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="h2 text-center">{{ title }}</p>
+                <table class="table">
+                    <thead class="table-primary">
+                    <tr>
+                        <th scope="col">Дата<br><sup>/редакт.</sup></th>
+                        <th scope="col">Клиент<br><sup>/позвонить</sup></th>
+                        <th scope="col">Длит.</th>
+                        <th scope="col">Пред./Остаток</th>
+                        <th scope="col">Админ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ins in incoms %}
+                        <tr {% if ins.balance == 0 %} style="background: #E2EAFE; color: #aaa;" {% endif %}>
+                            <td><a href="{% url 'studio_buh:future_incoms' %}future-order/{{ ins.id }}/upd/">{{ ins.date_ordering|date:"d/m на H:i" }}
+                                <br><sup>{{ ins.date_ordering|date:"l" }}</sup></a></td>
+                            <td><a href="tel:+{{ ins.tel.tel }}">{{ ins.tel.tel }}</a><br><sup>{{ ins.tel.name }}</sup></td>
+                            <td>{{ ins.order }}</td>
+                            <td>{{ ins.prepay }} грн / {{ ins.balance }} грн</td>
+                            <td>{{ ins.who_admin }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

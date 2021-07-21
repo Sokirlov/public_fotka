@@ -1,0 +1,11 @@
+# buh
+User-agent: *
+Disallow: /ru/720p/
+Disallow: /uk/720p/
+Disallow: /en/720p/
+# admin
+Disallow: /admin/
+# models
+Disallow: /ru/modeles/alls/
+Disallow: /uk/modeles/alls/
+Disallow: /en/modeles/alls/

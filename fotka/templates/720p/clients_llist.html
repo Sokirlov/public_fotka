@@ -1,0 +1,76 @@
+{% extends "720p/720p_base.html" %}
+{% load studio_buh_tags %}
+{% block 720p_title %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
+<script>
+    $(document).ready(function () {
+        var phones = [{"mask": "+380 (##) ### ## ##"}, {"mask": "(###) ### ## ##"}];
+        $('#id_tel').inputmask({
+            mask: phones,
+            greedy: false,
+            definitions: {'#': {validator: "[0-9]", cardinality: 1}}
+         });
+    });
+            {% if messages %}
+                {% for message in messages %}
+                    alert('{{message}}');
+                {% endfor %}
+            {% endif %}
+        </script>
+{% endblock %}
+{% block 720p_buh %}
+    <div class="container-fluid border-bottom bg-info">
+        <div class="container">
+            <p class="h4 text-uppercase text-center text-white pb-3 pt-4">Новый клиент</p>
+        {% if submitted == True %}
+                            <h2 class="text-white text-center">Новый клиент добавлен !!!</h2>
+            <p>&nbsp;</p>
+            {% else %}
+            <form method="post">
+                <div class="row">
+                    {% csrf_token %}
+                    {% for f in form %}
+                        <div class="col">
+                            <div class="container text-white"> {{ f.label_tag }}</div>
+                            <div class="container">{{ f }}</div>
+                        </div>
+                    {% endfor %}
+                    <div class="container-fluid pt-3">
+                        <div class="float-right">
+                            <button class="btn btn-success"><span class="btn_form_text">Добавить клиента</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="container">&nbsp;
+
+                    </div>
+                </div>
+        </div>
+        </form>
+     {% endif %}
+    </div>
+    <div>
+        <table class="table">
+            <thead class="table-primary">
+            <tr>
+                <th scope="col">ФИО</th>
+                <th scope="col">Телефон<br /><sup>/email</sup></th>
+                <th scope="col">Комментарий</th>
+                <th scope="col">Откуда узнали</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cli in object_list %}
+                <tr>
+                    <th scope="row">{{ cli.name }}</th>
+                    <td>{{ cli.tel }}<br /><sup>{% if cli.email %}{{ cli.email }}{% endif %}</sup></td>
+                    <td>{{ cli.comments }}<br /> {% for j in  cli.income_set.all %}{{ j.payment }}, {% endfor %}</td>
+                    <td>{{ cli.sourceClient }}</td>
+                    <td><a href="{% url 'studio_buh:future_incoms' %}clients/{{ cli.id }}/upd">Обновить<br>данные</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

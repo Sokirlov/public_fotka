@@ -21,11 +21,16 @@ p {
     flex-wrap: wrap;
     /*flex-direction: column;*/
     max-width: 500px;
+    justify-content: space-between;
+}
+form div{
+    width: calc(50% - 5px);
 }
 input {
     margin: 5px 0;
     padding: 3px;
     width: 100%;
+    box-sizing: border-box;
 }
 label {
     margin: 10px 0 0 0;
@@ -40,26 +45,53 @@ select {
     background: rgb(250,250,250);
     width: 100%;
 }
-select#id_birthday_day, select#id_birthday_month, select#id_birthday_year{
-    width: calc(100% / 3 - 10px);
+div.id_birthday_day{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
-select#id_birthday_month, select#id_birthday_year{
-margin-left: 15px;
+.id_birthday_day label, .id_fio, .id_money{
+    width: 100%;
 }
+div.id_sex{
+    width: 100%;
+}
+div.id_tfp{
+    display: flex;
+    width: 100%;
+}
+
+/*select#id_birthday_day, select#id_birthday_month, select#id_birthday_year{*/
+/*    width: calc(100% / 3 - 10px);*/
+/*}*/
+/*select#id_birthday_month, select#id_birthday_year{*/
+/*margin-left: 15px;*/
+/*}*/
+div.id_birthday {
+    width: 100%;
+}
+
 button {
     margin: 20px 0;
     padding: 5px;
     margin-left: calc(100% - 125px);
 }
-#id_tel, #id_email, #id_insta, #id_fb, #id_lenth, #id_weight, #id_chest, #id_waist, #id_hips, #id_footwear{
-    width: calc(50% - 15px);
-}
-#id_tel, #id_insta, #id_lenth,  #id_chest,  #id_hips {
-    margin-right:10px ;
+/*#id_tel, #id_email, #id_insta, #id_fb, #id_lenth, #id_weight, #id_chest, #id_waist, #id_hips, #id_footwear{*/
+/*    width: calc(50% - 15px);*/
+/*}*/
+div.id_email, div.id_fb, div.id_weight,  div.id_waist,  div.id_footwear {
+    margin-left:10px ;
 }
 .modeles-link{
     text-align: right;
 }
+.id_tfp input{
+    margin: 10px 10px 0px 10px;
+}
+.id_tfp label, .id_tfp input{
+    width: auto;
+}
+
 @media screen and (max-width: 736px) {
     .ModelesForm{
         width: 90%;

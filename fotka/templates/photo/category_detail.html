@@ -7,8 +7,8 @@
 {% block title %}{{ object.categoryName }}{% endblock %}
 {% block head %}
     <meta name="keywords" content="{{ category.keyWords }}" />
+    <meta name="description" content="{{ category.descriptions }}" />
     <link href="{% static "css/detail.css" %}" rel="stylesheet">
-    <!-- Magnific Popup core CSS file -->
     <link rel="stylesheet" href="{% static "magnific-popup/magnific-popup.css"%}">
     <script src="{% static "magnific-popup/jquery.magnific-popup.min.js"%}"></script>
     <script src="{% static "magnific-popup/gallery.js"%}"></script>
@@ -26,7 +26,6 @@
                  <iframe width="100%" height="500" style="height: 130vh; width: 140vw; margin-top: -10vh; margin-left: -20vw;" src="{{ object.video |videobanner}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 {% endif %}{% endif %}
-
                 <div class="title an">
                     <h1>{{ category.categoryName }}</h1>
                 </div>
@@ -75,14 +74,10 @@
 
             {% if videopholio %}
             <div class="gallery wrapper">
-{#                        <h2>{{'portfolio' | globals }}</h2>#}
                 <div class="gallerys blocks">
                 {% for a in videopholio %}
                     <div class="gallVideo">
-{#                        <a class="popup-youtube" href=""{{ a.videoLink |youtube }}">#}
-{#                        <img src="{{ a.videoLink}}">#}
-                        <iframe class="popup-youtube" width="100%" height="100%" src="{{ a.videoLink |youtube }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-{#                        </a>#}
+                        <div class="popup-youtube youtube" id="{{ a.videoLink |youtube2 }}" ></div>
                     </div>
                 {% endfor %}
                 </div>
@@ -90,15 +85,15 @@
             {% endif %}
 
             {% if prices %}
-            <div class="price wrapper">
+            <div class="price wrapper" >
                         <h2>{% translate 'Цены' %}</h2>
-                <div class="prices blocks">
+                <div class="prices blocks" itemprop = "offers" itemscope itemtype = "https://schema.org/Offer">
                     {% for price in prices %}
                         <div class="price block">
-                            <div class="price_header">{{ price.priceBlockName }}</div>
-                            <div class="price_description">{{ price.priceBlockText|markdown}}</div>
+                            <div class="price_header" itemprop="name" content="{{ price.priceBlockName }}">{{ price.priceBlockName }}</div>
+                            <div class="price_description" itemprop="description">{{ price.priceBlockText|markdown}}</div>
                             <div class="price_price">
-                                {{ price.priceBlockCount }}{% translate 'грн' %}
+                                <span itemprop="price" content="{{ price.priceBlockCount }}">{{ price.priceBlockCount }}</span><span itemprop = "priceCurrency" content = "UAH">{% translate 'грн' %}</span>
                             </div>
                             <button name="заказать" class="clik_zakaz">{% translate 'Заказать' %}</button>
                         </div>
@@ -110,19 +105,47 @@
 {% block form %} {% endblock %}
             {% if case %}
             <div ><h2>{% translate 'Кейс работ' %}</h2>
-                {% for cs in case %}
-                    <div class="case wrapper">
+                <div class="case wrapper">
+                    {% for cs in case %}
                         <div class="case blocks">
                            <a href="{{ cs.get_absolute_url }}">
-                            <div class="an case block" style="{% if request.user_agent.is_mobile  %}{% thumbnail cs.casegallery_set.all|preview "500" quality=90 as im %}background-image: url({{ im.url }}){% endthumbnail %}
-{% else %}background-image: url('/media/{{ cs.casegallery_set.all|preview }}'){% endif %}">
+                            <div class="an case block" style="
+                                    {% if request.user_agent.is_mobile  %}
+                                        {% thumbnail cs.casegallery_set.all|preview "500" quality=90 as im %}
+                                            background-image: url({{ im.url }})
+                                        {% endthumbnail %}
+                                    {% else %}
+                                        background-image: url('/media/{{ cs.casegallery_set.all|preview }}')
+                                    {% endif %};
+                                    {% if request.user_agent.is_pc  %}
+                                        background-position-x: {{ cs.bannerPositionX }}vw;
+                                        background-position-y: {{ cs.bannerPositionY }}vh;
+                                        background-size: {{ cs.bannerSize }}%;{% endif %}">
                                 <div class="case_title">{{ cs.title }}</div>
                                 <div class="case_intro">{{ cs.text |markdown|truncatewords:10}}</div>
                            </div>
                             </a>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if blog %}
+            <div ><h2>{% translate 'Блог' %}</h2>
+                <div class="case wrapper">
+                    {% for bg in blog %}
+                        <div class="case blocks">
+                           <a href="{{ bg.get_absolute_url }}">
+                            <div class="an case block" style="{% if request.user_agent.is_mobile  %}{% thumbnail bg.photo "500" quality=90 as im %}background-image: url({{ im.url }}){% endthumbnail %}
+{% else %}background-image: url('/media/{{ bg.photo }}'){% endif %};">
+                                <div class="case_title">{{ bg.title }}</div>
+                                <div class="case_intro">{{ bg.text |markdown|truncatewords:10}}</div>
+                           </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             {% endif %}
         </div>

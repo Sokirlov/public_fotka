@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block head %}
+<style>
+    .login-form {
+        width: 400px;
+        margin: auto;
+    }
+    form p{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    p{
+        margin: 20px 0;
+    }
+    p input{
+        flex: 1;
+        margin-left: 10px;
+    }
+    .helptext{
+        font-size: 12px;
+    }
+    ul li{
+       font-size: 12px;
+    }
+@media screen and (max-width: 736px) {
+    .login-form {
+        width: calc(100% - 10px);
+    }
+}
+
+
+</style>
+{% endblock %}
+{% block content %}
+    <div style="height: 70px"> </div>
+<h2>Sign up</h2>
+    <div class="login-form">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Sign up</button>
+        </form>
+    </div>
+{% endblock content %}

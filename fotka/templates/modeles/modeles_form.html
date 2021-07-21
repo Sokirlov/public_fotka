@@ -1,23 +1,41 @@
 {% extends "base.html" %}
 {% load static %}
-{#{% load photo_tags %}#}
-{#{% load modeles_tags %}#}
 {% load i18n %}
 {% block head %}
-<link href="{% static "css/modeles-form.css" %}" rel="stylesheet">
+    <link href="{% static "css/modeles-form.css" %}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+          integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+            integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $("#id_birthday").datetimepicker({
+                timepicker: false,
+                format: 'd.m.Y',
+                startDate: '+1980.01.01',
+                lang: 'ru',
+                value: '{% now "d.m.Y" %}',
+            });
+            $.datetimepicker.setLocale('ru');
+        });
+    </script>
 {% endblock %}
 {% block content %}
-<div style="height: 70px"> </div>
-    <div class="modeles-link"> <a href="{% url 'modeles:modeles_list' %}">all</a> </div>
+    <div style="height: 70px"></div>
+    <div class="modeles-link"><a href="{% url 'modeles:modeles_list_free' %}">view</a> | <a
+            href="{% url 'modeles:modeles_list' %}">all</a></div>
     <h3>{% translate 'Форма для моделей' %}</h3>
     <p>{% translate 'Все поля обязательны к заполнению' %}</p>
     <div class="form_model">
-        <form action="{% url 'modeles:modele' %}" method="post" class="ModelesForm" style="" enctype="multipart/form-data">
+        <form action="{% url 'modeles:modele' %}" method="post" class="ModelesForm" style=""
+              enctype="multipart/form-data">
             {% csrf_token %}
-            {{ modeles_form }}
+            {{ modeles_form.management_form }}
+            {% for form in modeles_form %}
+                <div class="{{ form.id_for_label }}">{{ form.label_tag }} {{ form }}</div>
+            {% endfor %}
             <button class="btn_form"><span class="btn_form_text">Отправить заявку</span></button>
         </form>
     </div>
-
-
 {% endblock %}

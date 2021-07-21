@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load photo_tags %}
+{% load static %}
+{% load thumbnail %}
+{% load i18n %}
+{% block title %}{{ blog.title }}{% endblock %}
+{% block head %}
+    <link href="{% static "css/detail.css" %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static "magnific-popup/magnific-popup.css"%}">
+<script src="{% static "magnific-popup/jquery.magnific-popup.min.js"%}"></script>
+    <script src="{% static "magnific-popup/gallery.js"%}"></script>
+{% endblock %}
+{% block content %}
+<div style="height: 70px;"></div>
+    <div ><h2>{% translate 'Правила' %}</h2>
+                <div class="case wrapper">
+                    правила
+                </div>
+            </div>
+
+{% endblock %}

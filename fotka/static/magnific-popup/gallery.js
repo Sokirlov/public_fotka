@@ -1,3 +1,4 @@
+// $(document).ready(function() {
 $(document).ready(function() {
     $('.gallerys.blocks').magnificPopup({
         delegate: '.gallpopup', // child items selector, by clicking on it popup will open

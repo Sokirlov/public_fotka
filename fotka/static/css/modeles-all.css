@@ -1,10 +1,11 @@
 .modeles_container{
     display: flex;
+    flex-wrap: wrap;
 }
 .modeles_block {
     padding: 10px 0;
-    margin-bottom: 50px;
-    width: calc(50% - 5px);
+    margin-bottom: 10px;
+    width: calc(50% - 8px);
     background: #DCEBF5;
     border: 1px solid #97A2A8;
 }
@@ -100,4 +101,14 @@ button.btn_form {
     display: flex;
     flex-wrap: wrap;
     /* min-height: 220px; */
+}
+
+@media screen and (max-width: 736px) {
+    .modeles_block{
+        width: 100%;
+        margin-right: 0;
+    }
+    .main-block{
+        width: fit-content;
+    }
 }

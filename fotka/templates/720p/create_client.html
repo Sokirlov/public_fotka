@@ -1,0 +1,12 @@
+{% extends "720p/720p_base.html" %}
+{% load studio_buh_tags %}
+{% block 720p_title %}
+{% endblock %}
+{% block 720p_buh %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Send message">
+</form>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load photo_tags %}
+{% load static %}
+{% load thumbnail %}
+{% block title %}{{ blog.title }}{% endblock %}
+{% block head %}
+    <link href="{% static "css/detail.css" %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static "magnific-popup/magnific-popup.css"%}">
+<script src="{% static "magnific-popup/jquery.magnific-popup.min.js"%}"></script>
+    <script src="{% static "magnific-popup/gallery.js"%}"></script>
+{% endblock %}
+{% block content %}
+
+    <br><br><br><br>
+    <div ><h2>{% translate 'Блог' %}</h2>
+                <div class="case wrapper">
+                    {% for bg in blog-all %}
+                        <div class="case blocks">
+                           <a href="{{ bg.get_absolute_url }}">
+                            <div class="an case block" style="{% if request.user_agent.is_mobile  %}{% thumbnail bg.photo "500" quality=90 as im %}background-image: url({{ im.url }}){% endthumbnail %}
+{% else %}background-image: url('/media/{{ bg.photo }}'){% endif %};">
+                                <div class="case_title">{{ bg.title }}</div>
+                                <div class="case_intro">{{ bg.text |markdown|truncatewords:10}}</div>
+                           </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+{{ kwargs.case }}
+{% endblock %}

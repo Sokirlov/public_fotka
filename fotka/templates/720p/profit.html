@@ -1,0 +1,155 @@
+{% extends "720p/720p_base.html" %}
+{% load studio_buh_tags %}
+{% block 720p_title %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages': ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year', 'Продажи'],
+                    {% for foo in incoms|dictsort:'date_ordering' %}[
+                        '{{ foo.date_ordering|date:"SHORT_DATE_FORMAT" }}',        {{ foo.prepay| summvalios:foo.payment }}
+                        ],
+                    {% endfor %}]);
+            var options = {
+                title: 'Статистика: {{ title }}',
+                curveType: 'function',
+                legend: {position: 'bottom'}
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            chart.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['bar']});
+        {% if 'last-orders' in request.path %}
+            google.charts.setOnLoadCallback(drawChart2);
+            function drawChart2() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Имя', '', {role: 'style'}, 'Разница'],
+                    ['Карта', {{ balance_card|replacekomatodot }}, 'color: silver', {{ balance_card|replacekomatodot }}],
+                    ['Наличка', {{ balance_cash|replacekomatodot }}, 'color: gold', {{ balance_cash|replacekomatodot }}],
+                ]);
+                var view = new google.visualization.DataView(data);
+                view.setColumns([0, 1, {calc: "stringify", sourceColumn: 3, type: "string", role: "annotation"}, 2,]);
+                var ostatok =
+                {{ balance_sum|replacekomatodot }}
+                var ost = new String(ostatok) + 'грн'
+                view.setColumns([0, 1,
+                    {
+                        calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation"
+                    },
+                    2]);
+                var options = {
+                    chart: {
+                        title: 'Денег всего',
+                        subtitle: ost,
+                    }
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_material"));
+                chart.draw(view, options);
+            }
+        {% endif %}
+    </script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+          integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+            integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        $(function () {
+            $("#id_date_ordering").datetimepicker({
+                format: 'd.m.Y H:i',
+                startDate: '+2020.11s.01',
+                lang: 'ru',
+                value: '{% now "d.m.Y H:i" %}',
+                timepicker: false,
+                allowTimes: [
+                    '10:00', '11:00', '12:00', '13:00', '14:00', '15:00',
+                    '16:00', '17:00', '18:00', '19:00', '20:00', '21:00',
+                    '22:00']
+            });
+            $.datetimepicker.setLocale('ru');
+        });
+        $(document).ready(function () {
+            $('#id_tel').select2();
+        });
+    </script>
+{% endblock %}
+{% block 720p_buh %}
+    <div class="container-fluid border-bottom bg-light">
+        {% if 'last-orders' not in request.path %}
+            <div class="container">
+                <div id="curve_chart" style="width: 100%; height: 300px"></div>
+            </div>
+        {% endif %}
+        {% if 'last-orders' in request.path %}
+            <div class="container-fluid row">
+                <div id="curve_chart" style="width: 70%; height: 300px"></div>
+                <div id="columnchart_material" style="width: 30%; height: 300px;"></div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="container-fluid border-bottom bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2 p-1 border border-bottom-0 text-center d-flex flex-column justify-content-center">
+                    <span class="h6">Всего поступило на карту</span><br/>{{ sum_card }} грн
+                </div>
+                <div class="col-sm-2 p-1 border border-bottom-0 text-center d-flex flex-column justify-content-center">
+                    <span class="h6">Всего поступило налички</span><br/>{{ sum_cash }} грн
+                </div>
+                <div class="col-sm p-1 border border-bottom-0 text-center d-flex flex-column justify-content-center">
+                    <span class="h6">Всего поступило</span>{{ sum_studio }} грн
+                </div>
+                <div class="col-sm p-1 border border-bottom-0 text-center d-flex flex-column">
+                    <div class="border-bottom"><span class="h4">Отаток</span><br>{{ balance_sum }} грн</div>
+                    <div class="d-flex col">
+                        <div class="col text-center"><span class="h6">на карте</span><br/>{{ balance_card }} грн</div>
+                        <div class="col text-center"><span class="h6">наличка</span><br/>{{ balance_cash }} грн</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="h2 text-center">{{ title }}</p>
+    <table class="table">
+        <thead class="table-primary">
+        <tr>
+            <th scope="col">Дата арнеды</th>
+            <th scope="col">Кто арнедовал</th>
+            <th scope="col">Сколько часов</th>
+            <th scope="col">Предоплата</th>
+            <th scope="col">Расчет</th>
+            <th scope="col">Метод оплаты</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ins in incoms %}
+            <tr {% if ins.balance == 0 %} style="background: #E2EAFE; color: #aaa;" {% endif %}>
+                <th scope="row">
+                {{ ins.date_ordering }}</td>
+                <th scope="row">
+                {{ ins.tel.name }}</td>
+                <td><a href="{% url 'studio_buh:future_incoms' %}future-order/{{ ins.id }}/upd/">{{ ins.order }}</a>
+                </td>
+                <td><a href="{% url 'studio_buh:future_incoms' %}future-order/{{ ins.id }}/upd/">{{ ins.prepay }}
+                    грн</a></td>
+                <td><a href="{% url 'studio_buh:future_incoms' %}future-order/{{ ins.id }}/upd/">{{ ins.payment }}
+                    грн</a></td>
+                <td>
+                    <a href="{% url 'studio_buh:future_incoms' %}future-order/{{ ins.id }}/upd/">{{ ins.get_payment_type_display }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "720p/720p_base.html" %}
+{% block 720p_title %}
+<script>
+$(document).ready(function() {
+    $('#id_payment_type').attr('required', "true")
+});
+function goBack() {
+      window.history.back();
+    }
+</script>
+{% endblock %}
+{% block 720p_buh %}
+<div class="container">
+    <p class="h2 text-center">Провести заказ</p>
+    <div class="mx-auto" style="width: 320px;">
+    <form action="" method="post">
+        {% csrf_token %}
+            <table>
+            {{ form.as_table }}
+            </table>
+        <button onclick="goBack()" style="margin-right: 150px;">Отмена</button>
+        <input type="submit" value="Отправить" />
+    </form>
+</div>
+</div>
+{% endblock %}

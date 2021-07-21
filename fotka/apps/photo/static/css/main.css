@@ -200,11 +200,18 @@ a:hover{
 /*----- mobile -------*/
 @media screen and (max-width: 736px) {
 	h2{
-		font-size: 30px;
-		padding-right: 5px;
+		font-size: 20px;
+		padding: 10px 5px;
+		margin: 0;
 	}
 	h1{
 	font-size: 35px;
+	}
+	.block a{
+		text-decoration: underline;
+	}
+	.block:nth-child(2n) a{
+		color: #DDDDDD;
 	}
 	.menu{
 		flex-direction: column;
@@ -215,10 +222,16 @@ a:hover{
 	}
 	.blocks {
 	    display: flex;
+		flex-wrap: nowrap;
 	    flex-direction: column;
     	min-height: 80px;
 	}
+	.banner{
+		background-position-x: 30%;
+		min-height: 225px;
+	}
 	.intro {
+		position: relative;
 		background: rgba(0, 0, 0, 0.8);
 		top: auto;
 		width: calc(100% - 20px);

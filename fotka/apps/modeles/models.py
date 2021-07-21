@@ -44,6 +44,7 @@ class Modeles(models.Model):
     hair_color = models.CharField('Цвет волос', max_length=10, choices=HAIR_COLOR)
     haer_lenth = models.CharField('Длина волос', max_length=10, choices=HEAR_LENTH)
     money = models.PositiveSmallIntegerField('Гонорар за съемку в грн', )
+    tfp = models.BooleanField("ТФП", default=False, )
 
     def image_tag(self):
         from django.utils.safestring import  mark_safe
@@ -58,16 +59,9 @@ class Modeles(models.Model):
 
 import django_filters
 class ModelesFilter(django_filters.FilterSet):
-    # qrs = Modeles.objects.all().defer('lenth')
-    # lenth = django_filters.filters.ModelMultipleChoiceFilter(
-    #     field_name='lenth',
-    #     to_field_name='lenth',
-    #     queryset=qrs,
-    # )
 
     class Meta:
         model = Modeles
-        # fields = [ 'sex', 'birthday', 'lenth', 'weight', 'chest', 'waist', 'hips', 'footwear', 'hair_color', 'haer_lenth', 'money',]
         fields = {
 
             'sex': ['exact'],
@@ -81,5 +75,5 @@ class ModelesFilter(django_filters.FilterSet):
             'hair_color': ['exact'],
             'haer_lenth': ['exact'],
             'money': ['gt', 'lt'],
-
+            'tfp': ['exact'],
         }

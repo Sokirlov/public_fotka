@@ -1,13 +1,12 @@
 import os
 import sys
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import datetime
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
-ALLOWED_HOSTS = ['new.fotka.kiev.ua']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -25,24 +24,22 @@ INSTALLED_APPS = [
     'photo',
     'clients',
     'modeles',
+    'home_buh',
+    'studio_buh',
+
     'sorl.thumbnail',
     'django_cleanup',
     'django_user_agents',
     'django_filters',
+    'accounts.apps.AccountsConfig',
+    'djoser',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'django.contrib.sitemaps',
 ]
-# Redirect to home URL after login (Default redirects to /accounts/profile/)
-LOGIN_REDIRECT_URL = '/modeles/all/'
-# # Cache backend is optional, but recommended to speed up user agent parsing
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-#         'LOCATION': '127.0.0.1:11211',
-#     }
-# }
-#
-# # Name of cache backend to cache user agents. If it not specified default
-# # cache alias will be used. Set to `None` to disable caching.
-# USER_AGENTS_CACHE = 'default'
+
+LOGIN_REDIRECT_URL = 'auth/users/me/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,6 +54,18 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'fotka.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=30),
+}
 
 TEMPLATES = [
     {
@@ -108,7 +117,7 @@ LANGUAGES = [
     ('en', 'EN'),
 ]
 LOCALE_PATHS = (
-       os.path.join(PROJECT_ROOT, 'locale'),
+    os.path.join(PROJECT_ROOT, 'locale'),
 )
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 
@@ -119,6 +128,6 @@ THUMBNAIL_ALIASES = {
 }
 
 try:
-	from .local_conf import *
+    from .local_conf import *
 except ImportError:
-	from .conf import *
+    from .conf import *

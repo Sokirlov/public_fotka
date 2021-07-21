@@ -5,18 +5,17 @@
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
+	<title>{% block title %}Фотограф Соколов Кирилл{% endblock %}</title>
 	<meta charset="UTF-8">
     <meta name="google" content="notranslate" />
-	<title>{% block title %}Фотограф Соколов Кирилл{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+
 	<link href="{% static "css/main.css" %}" rel="stylesheet">
     <link href="{% static "css/animate.css" %}" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700,400,600,200" media="all">
-
-    <script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
     <script src="{% static "js/main.js" %}"></script>
-{#<script type="text/javascript" src="{% static "js/main.js" %}"></script> #}
-{% block head %} {% endblock %}
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block head %} {% endblock %}
 </head>
 <body>
 <div class="menu">
@@ -29,7 +28,7 @@
             <a href="{% url 'photo:main' %}">{% translate 'Главная' %}</a>
         </div>
         <div class="button" style="{% if 'photo' in request.path %}background: rgba(0,0,0,0.2);{% endif %}">
-            <a href="{% url 'photo' %}"  style="{% if 'photo' in request.path %} text-transform: uppercase; color: #eee; {% endif %}">
+            <a href="{% url 'photo' %}"  style="{% if 'photo' in request.path %} text-transform: uppercase; color: #eeeeee; {% endif %}">
                     {% translate 'Фотосъемка' %}
             </a>
         </div>
@@ -53,12 +52,21 @@
                 {% translate 'Моделям' %}
             </a>
         </div>
+        <div class="button" >
+        {% if user.is_authenticated %}
+            <p>Hi &nbsp;{{ user.username }}! | <a href="{% url 'logout' %}">Log Out</a></p>
+
+        {% else %}
+            <a href="{% url 'login' %}">Log In</a>
+        {% endif %}
+        </div>
         <div class="lang-conteiner">
         {% get_available_languages as LANGUAGES %}
         {% get_language_info_list for LANGUAGES as languages %}
         {% for language in languages %}
             {% if language.code != LANGUAGE_CODE %}
-    <a href="/{{ language.code }}{{ request.get_full_path|slice:'3:' }}" class="selected" lang="{{ language.code }}"><img src="{% static "lang/" %}{{ language.code }}.gif">
+    <a href="/{{ language.code }}{{ request.get_full_path|slice:'3:' }}" class="selected" lang="{{ language.code }}">
+        <img src="{% static "lang/" %}{{ language.code }}.gif">
     </a> &nbsp;{% endif %}{% endfor %}
         </div>
     </div>

@@ -3,25 +3,27 @@ from django.core.validators import validate_email
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from clients.models import Zakaz
-from photo.models import Category, Globals, Price
+from photo.models import Category, Price
 
 
 
 class ZakazForm(forms.ModelForm):
-    # pagelink = forms.ModelChoiceField(queryset=Category.objects.all().only('categoryName'), label='', empty_label = _("Выбирите услугу"))
-    # def __init__(self, *args, **kwargs):
-    #     super(ZakazForm, self).__init__(*args, **kwargs)
-    #     self.fields['pagelink'].queryset = Category.objects.all().only('categoryName')
-    # def get_absolute_url(self):
-    #     return reverse('photo:detail', kwargs = {'razdel': self.razdel, 'slug': self.slug,})
-    pagelink = forms.ModelChoiceField(queryset=Category.objects.all(), label='', empty_label = _("Выбирите услугу"))
+
+    def __init__(self, *args, **kwargs):
+        context = super(ZakazForm, self).__init__(*args, **kwargs)
+        allUrl = None
+        for i in args:
+            allUrl = i.request.path
+        try:
+            arrUrl = allUrl.split('/')
+            newUrl = arrUrl[-2]
+            self.fields['pagelink'] =forms.ModelChoiceField(queryset=Price.objects.filter(slug__slug=newUrl), label='', empty_label=_("Выбирите услугу"))
+        except AttributeError:
+            pass
+
+        return context
+
     # pagelink = forms.ModelChoiceField(queryset=Price.objects.all(), label='', empty_label=_("Выбирите услугу"))
-
-    # #     return self.kwargs['slug']
-    # def __init__(self, *args, **kwargs):
-    #     super(ZakazForm, self).__init__(*args, **kwargs)
-    #     self.fields['pagelink'].queryset = Price.objects.all()
-
 
     class Meta:
         model = Zakaz

@@ -1,0 +1,86 @@
+{% extends "720p/720p_base.html" %}
+{% load studio_buh_tags %}
+{% block 720p_title %}
+    <script>
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            {% if payments.parsedOfWeekDay.1 %}{{ payments.parsedOfWeekDay.1|replacekomatodot }}{% else %}
+            0
+            {% endif %}
+            var data_order = google.visualization.arrayToDataTable([
+                ['День недели', 'Доходы', 'Расходы'],
+                ['Понедельник', {{ incoms.parsedOfWeekDay.1 }}, {% if payments.parsedOfWeekDay.1 %}{{ payments.parsedOfWeekDay.1|replacekomatodot }}{% else %} 0 {% endif %},],
+                ['Вторник', {{ incoms.parsedOfWeekDay.2 }}, {% if payments.parsedOfWeekDay.2 %}{{ payments.parsedOfWeekDay.2|replacekomatodot }}{% else %} 0 {% endif %},],
+                ['Среда', {{ incoms.parsedOfWeekDay.3 }}, {% if payments.parsedOfWeekDay.3 %}{{ payments.parsedOfWeekDay.3|replacekomatodot }}{% else %} 0 {% endif %},],
+                ['Четверг', {{ incoms.parsedOfWeekDay.4 }}, {% if payments.parsedOfWeekDay.4 %}{{ payments.parsedOfWeekDay.4|replacekomatodot }}{% else %} 0 {% endif %},],
+                ['Пятница', {{ incoms.parsedOfWeekDay.5 }}, {% if payments.parsedOfWeekDay.5 %}{{ payments.parsedOfWeekDay.5|replacekomatodot }}{% else %} 0 {% endif %},],
+                ['Суббота', {{ incoms.parsedOfWeekDay.6 }}, {% if payments.parsedOfWeekDay.6 %}{{ payments.parsedOfWeekDay.6|replacekomatodot }}{% else %} 0 {% endif %},],
+                ['Воскресенье', {{ incoms.parsedOfWeekDay.7 }}, {% if payments.parsedOfWeekDay.7 %}{{ payments.parsedOfWeekDay.7|replacekomatodot }}{% else %} 0 {% endif %},],
+            ]);
+            var view = new google.visualization.DataView(data_order);
+            view.setColumns([
+                0,
+                1, {calc: "stringify", sourceColumn: 1, type: "string", role: "annotation"},
+                2, {calc: "stringify", sourceColumn: 2, type: "string", role: "annotation"},
+            ]);
+            var options_order = {
+                title: 'Статистика',
+                curveType: 'function',
+                legend: {position: 'bottom'}
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('curve_chart_incom'));
+            chart.draw(view, options_order);
+        }
+    </script>
+{% endblock %}
+
+{% block 720p_buh %}
+    <div class="container-fluid">
+        <div id="curve_chart_incom" style="width: 100%; height: 400px"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col bg-secondary text-white"></div>
+            <div class="col-3 bg-secondary text-white text-center text-uppercase">Последний меcяц</div>
+            <div class="col-3 bg-secondary text-white text-center text-uppercase">В этом году</div>
+            <div class="col-3 bg-secondary text-white text-center text-uppercase">За все время</div>
+        </div>
+        <div class="row bg-primary">
+            <div class="col">
+                <h2 class="text-center">Прибыль</h2>
+            </div>
+            <div class="col-3 text-center border-left  d-flex flex-column justify-content-center ">
+                {{ incoms.this_month_summ }} грн
+            </div>
+            <div class="col-3 text-center border-left  d-flex flex-column justify-content-center">
+
+                {{ incoms.this_year_summ }} грн
+            </div>
+            <div class="col-3 text-center border-left d-flex flex-column justify-content-center">
+                {{ incoms.all_time_summ }} грн
+            </div>
+        </div>
+
+        <div class="row bg-danger">
+            <div class="col"><h2 class="text-center">Расходы</h2></div>
+            <div class="col-3 text-center border-left d-flex flex-column justify-content-center">
+                {{ payments.this_month_summ }} грн
+            </div>
+            <div class="col-3 text-center border-left d-flex flex-column justify-content-center">
+                {{ payments.this_year_summ }} грн
+            </div>
+            <div class="col-3 text-center border-left d-flex flex-column justify-content-center">
+                {{ payments.all_time_summ }} грн
+            </div>
+        </div>
+        <div class="row border-top bg-danger">
+            {% for key, value in payments.parsedCategory.items %}
+                <div class="col text-center py-2"><strong>{{ key|idToCategory }}</strong> <br> {{ value }} грн</div>
+            {% endfor %}
+        </div>
+    </div>
+    <p>
+    </p>
+{% endblock %}

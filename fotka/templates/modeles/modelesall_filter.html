@@ -3,7 +3,6 @@
 <style>
     .modeles_block {
     padding: 10px 0;
-    {#/* border-top: 1px solid #ccc; */#}
     margin-bottom: 50px;
 }
 .modeles_title {
@@ -12,9 +11,7 @@
     padding: 10px;
 }
 .modeles_price {
-    {#/* float: right; */#}
     text-align: right;
-    {#/* width: 100%; */#}
     flex: 1;
 }
 .modeles_content {
@@ -31,7 +28,6 @@
     margin: 10px;
 }
 .modeles_left {
-    {#flex: 1;#}
     max-width: 40vw;
     display: flex;
 }
@@ -54,19 +50,9 @@
     <a href="{% url 'password_reset' %}">Lost password?</a> &nbsp;
     <a href="{% url 'logout' %}">Выход</a>
 </div>
-
-{#    <form method="get">#}
-{#    {{ filter.form.as_p }}#}
-{#    <button type="submit">Search</button>#}
-{#  </form>#}
-{#  <ul>#}
-{#  {% for user in filter.qs %}#}
-{#    <li>{{ user.sex }} - {{ user.money }}</li>#}
-{#  {% endfor %}#}
-{#    </ul>#}<div class="container">
+<div class="container">
 <div class="modeles_container">
     {% for mod in  modeles_all_list %}
-{#    {% for mod in  filter.qs %}#}
         <div class="modeles_block">
             <div class="modeles_title">
                 <div class="modeles_name">№{{ mod.id }}   {{ mod.fio }}</div>
@@ -89,16 +75,13 @@
                         <div class="skill"><div class="title">Длина волос</div><div class="numb">{{ mod.haer_lenth }}</div></div>
                     </div>
                     <div class="modeles_skils">
-
                         <div class="skill"><div class="title">Рост</div><div class="numb">{{ mod.lenth }} см</div></div>
                         <div class="skill"><div class="title">Вес</div><div class="numb">{{ mod.weight }} кг</div></div>
                         <div class="skill"><div class="title">Плечи</div><div class="numb">{{ mod.chest }} см</div></div>
                         <div class="skill"><div class="title">Талия</div><div class="numb">{{ mod.waist }} см</div></div>
                         <div class="skill"><div class="title">Бедра</div><div class="numb">{{ mod.hips }} см</div></div>
                         <div class="skill"><div class="title">Обувь</div><div class="numb">{{ mod.footwear }} р</div></div>
-
                     </div>
-
                     <div class="modeles_contacts">
                         <div>{{ mod.tel }}</div>
                         <div>{{ mod.email }}</div>
@@ -113,9 +96,7 @@
 <div class="filters">
     <div class="filter">
         <ul>
-
             <li><a href="#" target="_blank">{{ modeles_filter }}</a></li>
-
         </ul>
     </div>
 </div>

@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
 
-class ModelsConfig(AppConfig):
-    name = 'models'
+class ModelesConfig(AppConfig):
+    name = 'modeles'
+    verbose_name = '3. База моделей'

@@ -4,17 +4,20 @@
 {% block head %}
 <link href="{% static "css/form.css" %}" rel="stylesheet">
 {% endblock %}
-
-{#<div class="form_bgr">#}
 <div class="an form">
     <div class="form_bgr"></div>
-        <div class="an form_block">
-            <form action="{% url 'clients:zakaz' %}" method="post" class="zakaz_form">
-                <p>{% translate 'Заказать услугу' %}</p>
-                {% csrf_token %}
-                {{ zakaz_form }}
-                <button class="btn_form"><span class="btn_form_text">{% translate 'Отправить заявку' %}</span></button>
-            </form>
-        </div>
+    <div class="an form_block">
+        <form action="{% url 'clients:zakaz' %}" method="post" class="zakaz_form">
+            <p>{% translate 'Заказать услугу' %}</p>
+            {% csrf_token %}
+            {{ zakaz_form.name }}
+            {{ zakaz_form.email }}
+            {{ zakaz_form.tel }}
+            {{ zakaz_form.zakazTime }}
+            {{ zakaz_form.pagelink }}
+            {{ zakaz_form.comments }}
+            <button class="btn_form"><span class="btn_form_text">{% translate 'Отправить заявку' %}</span></button>
+        </form>
     </div>
+</div>
 {#</div>#}
